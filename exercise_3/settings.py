@@ -31,7 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'listingscreen.apps.ListingscreenConfig',
+#    'listingscreen.apps.ListingscreenConfig',
     'django_tables2',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -39,6 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'listingscreen',
+    'user.apps.UserConfig',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -120,3 +123,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+LOGIN_REDIRECT_URL = 'listingscreen-home'
+LOGIN_URL = 'login'

@@ -1,0 +1,33 @@
+{% extends "listingscreen/base.html" %}
+
+{% block content %}
+<style>
+  #contain {
+    width: 500px;
+  }
+</style>
+</div>
+  <div class="container" id="contain">
+    <h2>Book List Form - Edit</h2>
+    <hr>
+
+    <form action="/update_book/{{ books.id }}">
+        {% csrf_token %}
+        <label class="form-group" for="title">Title: <b>{{ books.title }}</b></label>
+        <input class="form-control" type="text" name="title" value="{{ books.title }}" placeholder="{{ books.title }}" required><br>
+
+        <label class="form-group" for="author">Author: <b>{{ books.author }}</b></label>
+        <input class="form-control" type="text" name="author" value="{{ books.author }}" placeholder="{{ books.author }}" required><br>
+
+        <label class="form-group" for="pages">Pages: <b>{{ books.pages }}</b></label>
+        <input class="form-control" type="number" name="pages" value="{{ books.pages }}" placeholder="{{ books.pages }}" required><br>
+
+        <label class="form-group" for="price">Price: <b>P {{ books.price }}</b></label>
+        <input class="form-control" type="number" name="price" value="{{ books.price }}" placeholder="{{ books.price }}" required><br>
+
+        <input type="submit" class="btn btn-primary" value="Update">
+        <a href="{% url 'listingscreen-books' %}" id="cancel" name="cancel" style="color:white;" class="btn btn-warning">Cancel</a>
+
+    </form>
+  </div>
+{% endblock content %}

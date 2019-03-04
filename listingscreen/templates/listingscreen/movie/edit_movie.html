@@ -1,0 +1,30 @@
+{% extends "listingscreen/base.html" %}
+
+{% block content %}
+<style>
+  #contain {
+    width: 500px;
+  }
+</style>
+</div>
+  <div class="container" id="contain">
+    <h2>Movie List Form - Edit</h2>
+    <hr>
+
+    <form action="/update_movie/{{ movies.id }}">
+        {% csrf_token %}
+        <label class="form-group" for="mtitle">Title: <b>{{ movies.mtitle }}</b></label>
+        <input class="form-control" type="text" name="mtitle" value="{{ movies.mtitle }}" placeholder="{{ movies.mtitle }}" required><br>
+
+        <label class="form-group" for="director">Director(s): <b>{{ movies.director }}</b></label>
+        <input class="form-control" type="text" name="director" value="{{ movies.director }}" placeholder="{{ movies.director }}" required><br>
+
+        <label class="form-group" for="rating">Rating: <b>{{ movies.rating }} / 10</b></label>
+        <input class="form-control" type="number" name="rating" step="0.01" min="1" max="10" value="{{ movies.rating }}" placeholder="{{ movies.rating }}" required><br>
+
+        <input type="submit" class="btn btn-primary" value="Update">
+        <a href="{% url 'listingscreen-movies' %}" id="cancel" name="cancel" style="color:white;" class="btn btn-warning">Cancel</a>
+
+    </form>
+  </div>
+{% endblock content %}

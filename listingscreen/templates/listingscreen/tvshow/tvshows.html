@@ -1,0 +1,43 @@
+{% extends "listingscreen/base.html" %}
+
+{% block content %}
+  <div class="container">
+    <h1>TV Show List</h1>
+    <hr>
+
+    <table class="table table-light">
+        <thead>
+          <tr>
+              <th>Title</th>
+              <th>No. of seasons‎</th>
+              <th>Network</th>
+              <th>No. of episodes</th>
+              {% if user.is_authenticated %}
+                <th>Actions</th>
+              {% else %}
+              {% endif %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for tvshow in tvshows %}
+            <tr>
+              <td>{{ tvshow.ttitle }}</td>
+              <td>{{ tvshow.seasons }}</td>
+              <td>{{ tvshow.network }}</td>
+              <td>{{ tvshow.episodes }}</td>
+              {% if user.is_authenticated %}
+                <td><a class="btn btn-info" href="/edit_tvshow/{{ tvshow.id }}">Edit</a>
+                    <a class="btn btn-danger" href="/delete_tvshow/{{ tvshow.id }}">Delete</a>
+                </td>
+              {% else %}
+              {% endif %}
+            </tr>
+          {% endfor %}
+        </tbody>
+    </table>
+    {% if user.is_authenticated %}
+      <a class="btn btn-primary" href="/add_tvshow/">Add TV Show</a><br><br>
+    {% else %}
+    {% endif %}
+  </div>
+{% endblock content %}

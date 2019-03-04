@@ -1,0 +1,33 @@
+{% extends "listingscreen/base.html" %}
+
+{% block content %}
+<style>
+  #contain {
+    width: 500px;
+  }
+</style>
+</div>
+  <div class="container" id="contain">
+    <h2>TV Show List Form - Edit</h2>
+    <hr>
+
+    <form action="/update_tvshow/{{ tvshows.id }}">
+        {% csrf_token %}
+        <label class="form-group" for="ttitle">Title: <b>{{ tvshows.ttitle }}</b></label>
+        <input class="form-control" type="text" name="ttitle" value="{{ tvshows.ttitle }}" placeholder="{{ tvshows.ttitle }}" required><br>
+
+        <label class="form-group" for="seasons">No. of seasons‎: <b>{{ tvshows.seasons }}</b></label>
+        <input class="form-control" type="number" name="seasons" value="{{ tvshows.seasons }}" placeholder="{{ tvshows.seasons }}" required><br>
+
+        <label class="form-group" for="network">Network: <b>{{ tvshows.network }}</b></label>
+        <input class="form-control" type="text" name="network" value="{{ tvshows.network }}" placeholder="{{ tvshows.network }}" required><br>
+
+        <label class="form-group" for="episodes">No. of episodes: <b>{{ tvshows.episodes }}</b></label>
+        <input class="form-control" type="number" name="episodes" value="{{ tvshows.episodes }}" placeholder="{{ tvshows.episodes }}" required><br>
+
+        <input type="submit" class="btn btn-primary" value="Update">
+        <a href="{% url 'listingscreen-tvshows' %}" id="cancel" name="cancel" style="color:white;" class="btn btn-warning">Cancel</a>
+
+    </form>
+  </div>
+{% endblock content %}
