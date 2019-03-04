@@ -9,7 +9,7 @@ def registration(request):
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
-            messages.success(request, 'Your account has now been created! Please login to verify.')
+            messages.success(request, 'Your account has now been created! Please login to verify.', extra_tags='login')
             return redirect('login')
     else:
         form = UserRegistrationForm()

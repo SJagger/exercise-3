@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from .models import BookList, MovieList, TvShowList
+from django.db.models import Q
+from django.contrib import messages
 
 def home(request):
     return render(request, 'listingscreen/home.html', {'title': 'Home'})
@@ -9,6 +11,19 @@ def home(request):
 def books(request):
     books = BookList.objects.all()
     return render(request, 'listingscreen/book/books.html', {'title': 'Books', 'books':books})
+
+def search_book(request):
+    if request.method=='POST':
+        srch = request.POST['search']
+        if srch:
+            match = BookList.objects.filter(Q(title__istartswith=srch) | Q(author__istartswith=srch))
+            if match:
+                return render(request, 'listingscreen/book/books.html', {'each':match})
+            else:
+                messages.error(request, 'there doesn\'t seem to be anything here', extra_tags='booksearch')
+        else:
+            return HttpResponseRedirect('/search_book/')
+    return render(request, 'listingscreen/book/books.html')
 
 @login_required
 def create_book(request):
@@ -53,6 +68,19 @@ def movies(request):
     movies = MovieList.objects.all()
     return render(request, 'listingscreen/movie/movies.html', {'title': 'Movies', 'movies':movies})
 
+def search_movie(request):
+    if request.method=='POST':
+        arch = request.POST['find']
+        if arch:
+            batch = MovieList.objects.filter(Q(mtitle__istartswith=arch) | Q(director__istartswith=arch))
+            if batch:
+                return render(request, 'listingscreen/movie/movies.html', {'reach':batch})
+            else:
+                messages.error(request, 'there doesn\'t seem to be anything here', extra_tags='moviesearch')
+        else:
+            return HttpResponseRedirect('/search_movie/')
+    return render(request, 'listingscreen/movie/movies.html')
+
 @login_required
 def create_movie(request):
     print(request.POST)
@@ -94,6 +122,19 @@ def update_movie(request, id):
 def tvshows(request):
     tvshows = TvShowList.objects.all()
     return render(request, 'listingscreen/tvshow/tvshows.html', {'title': 'TV Shows', 'tvshows':tvshows})
+
+def search_tvshow(request):
+    if request.method=='POST':
+        bach = request.POST['research']
+        if bach:
+            catch = TvShowList.objects.filter(Q(ttitle__istartswith=bach) | Q(seasons__istartswith=bach) | Q(network__istartswith=bach))
+            if catch:
+                return render(request, 'listingscreen/tvshow/tvshows.html', {'beach':catch})
+            else:
+                messages.error(request, 'there doesn\'t seem to be anything here', extra_tags='tvshowsearch')
+        else:
+            return HttpResponseRedirect('/search_tvshow/')
+    return render(request, 'listingscreen/tvshow/tvshows.html')
 
 @login_required
 def create_tvshow(request):

@@ -1,7 +1,13 @@
 {% extends "listingscreen/base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-    <div class="content-section">
+<style>
+  #contain {
+    width: 500px;
+  }
+</style>
+</div>
+    <div class="container" id="contain">
       <form method="POST">
         {% csrf_token %}
         <fieldset class="form-group">
